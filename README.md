@@ -1,6 +1,6 @@
 # UIScaleView
 
-##Overview
+## Overview
 
 UIScaleView is inspired by UILabel's adjustsFontSizeToFitWidth property. 
 
@@ -15,7 +15,7 @@ when a contents view whose minimum width is 200 is inserted into space where wid
 it's opposite case can be also true. where maximum width of contents is defined. it can be deal with it by scaling view to scaling to over 100%.
 
 
-##matching properties
+## matching properties
 
 | UIScaleView | UILabel | etc |
 |----|----|----|
