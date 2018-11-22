@@ -22,10 +22,6 @@ final class UIScaleView: UIView {
         }
     }
     
-    var defineSmallerScaleToFitWidth: Bool = true
-    
-    var defineBiggerScaleToFitWidth: Bool = true
-    
     var minimumScaleFactor: CGFloat {
         set {
             guard newValue <= 1.0, newValue >= 0.0 else { return }
@@ -61,14 +57,21 @@ final class UIScaleView: UIView {
     
     weak var contentsView: UIView! {
         didSet {
-            oldValue.removeFromSuperview()
+            oldValue?.removeFromSuperview()
             self.addSubview(contentsView)
             self.setNeedsLayout()
         }
     }
     
     func constraintView(targetSize: CGSize) {
-        let contentsSize = contentsView.systemLayoutSizeFitting(targetSize)
+        
+        let contentsSize: CGSize
+        switch self.axis {
+        case .horizontal:
+            contentsSize = contentsView.systemLayoutSizeFitting(CGSize(width: targetSize.width, height: CGFloat.greatestFiniteMagnitude) )
+        case .vertical:
+            contentsSize = contentsView.systemLayoutSizeFitting(CGSize(width: CGFloat.greatestFiniteMagnitude, height: targetSize.height) )
+        }
         
         let targetRatio: CGFloat
         switch self.axis {
@@ -113,16 +116,16 @@ final class UIScaleView: UIView {
     }
     
     override func systemLayoutSizeFitting(_ targetSize: CGSize) -> CGSize {
-        let contentsSize = contentsView.systemLayoutSizeFitting(targetSize)
-        
         switch self.axis {
         case .horizontal:
+            let contentsSize = contentsView.systemLayoutSizeFitting(CGSize(width: targetSize.width, height: CGFloat.greatestFiniteMagnitude) )
             let targetRatio = targetSize.width/contentsSize.width
             
             let constraintedRatio = min(max(self._minimumScaleFactor, targetRatio), self._maximumScaleFactor)
             
             return CGSize(width: targetSize.width, height: contentsSize.height * constraintedRatio)
         case .vertical:
+            let contentsSize = contentsView.systemLayoutSizeFitting(CGSize(width: CGFloat.greatestFiniteMagnitude, height: targetSize.height) )
             let targetRatio = targetSize.height/contentsSize.height
             
             let constraintedRatio = min(max(self._minimumScaleFactor, targetRatio), self._maximumScaleFactor)
