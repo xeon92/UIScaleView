@@ -19,10 +19,11 @@ it's opposite case can be also true. where maximum width of contents is defined.
 
 | UIScaleView | UILabel | etc |
 |----|----|----|
-<!--| defineSmallerScaleToFitWidth | adjustsFontSizeToFitWidth  | |-->
-<!--| defineBiggerScaleToFitWidth | | added |-->
 | minimumScaleFactor | minimumScaleFactor |
 | maximumScaleFactor | | added |
+<!--| defineSmallerScaleToFitWidth | adjustsFontSizeToFitWidth  | |-->
+<!--| defineBiggerScaleToFitWidth | | added |-->
+
 
 
 
